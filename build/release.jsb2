@@ -1,0 +1,30 @@
+{
+	projectName: 'GCRM Module',
+	licenseText: '',
+	deployDir: 'deploy/',
+	pkgs: [{
+		name: 'GCRM Module',
+		file: 'app/content/javascript/argos-gcrm.js',
+		isDebug: true,
+		fileIncludes: [{
+            text: 'Detail.js',
+            path: '../src/views/salesinvoice/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/salesinvoice/'
+        },{
+            text: 'Detail.js',
+            path: '../src/views/tradingaccount/'
+        },
+        {
+            text: 'List.js',
+            path: '../src/views/tradingaccount/'
+        }]
+	}],
+	resources: [{
+		src: '../src/',
+		dest: 'src/argos-gcrm',
+		filters: ".*\\.js"
+	}]
+}

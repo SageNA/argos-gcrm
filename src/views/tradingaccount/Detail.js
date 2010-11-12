@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
+/// <reference path="../../../../ext/ext-core-debug.js"/>
 /// <reference path="../../../../Simplate.js"/>
 /// <reference path="../../../../sdata/SDataSingleResourceRequest.js"/>
 /// <reference path="../../../../sdata/SDataService.js"/>
@@ -8,53 +8,46 @@
 
 Ext.namespace("Mobile.GCRM.TradingAccount");
 
-Mobile.GCRM.TradingAccount.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {       
-    constructor: function(o) {
-        Mobile.GCRM.TradingAccount.Detail.superclass.constructor.call(this);        
-        
-        Ext.apply(this, o, {
-            id: 'gcrm_tradingaccount_detail',
-            title: 'Trading Account',            
-            resourceKind: 'tradingAccounts'
-        });
-
-        this.layout = [
-            {name: 'name', label: 'name'},
-            {name: 'status', label: 'status'},
-            {name: 'website', label: 'web', renderer: Sage.Platform.Mobile.Format.link},
-            {name: 'financeBalance', label: 'balance'},
-            {name: 'financeLimit', label: 'limit'},
-            {name: 'lastInvoiceDate', label: 'last inv'},
-            {name: 'lastPaymentDate', label: 'last pay'},
-            {options: {title: 'CRM Related Items', list: true}, as: [
+Mobile.GCRM.TradingAccount.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
+    id: 'gcrm_tradingaccount_detail',
+    titleText: 'Trading Account',
+    nameText: 'name',
+    statusText: 'status',
+    webText: 'web',
+    balanceText: 'balance',
+    limitText: 'limit',
+    lastInvText: 'last inv',
+    lastPayText: 'last pay',    
+    relatedItemsText: 'Related Items',
+    relatedAccountsText: 'Account(s)',
+    serviceName: 'gcrm',
+    resourceKind: 'tradingAccounts',
+    querySelect: [
+        'name',
+        'status',
+        'website',
+        'financeBalance',
+        'financeLimit',
+        'lastInvoiceDate',
+        'lastPaymentDate'
+    ],   
+    createLayout: function() {
+        return this.layout || (this.layout = [
+            {name: 'name', label: this.nameText},
+            {name: 'status', label: this.statusText},
+            {name: 'website', label: this.webText, renderer: Sage.Platform.Mobile.Format.link},
+            {name: 'financeBalance', label: this.balanceText},
+            {name: 'financeLimit', label: this.limitText},
+            {name: 'lastInvoiceDate', label: this.lastInvText},
+            {name: 'lastPaymentDate', label: this.lastPayText},
+            {options: {title: this.relatedItemsText, list: true}, as: [
                 {
-                    view: 'account_related', 
-                    where: this.formatRelatedQuery.createDelegate(this, ["GlobalSyncID eq '{0}'", '$uuid'], true), 
-                    label: 'Account(s)',
-                    icon: 'products/slx/images/Accounts_24x24.gif'
+                    view: 'account_related',
+                    where: this.formatRelatedQuery.createDelegate(this, ["$uuid eq '{0}'", '$uuid'], true),
+                    label: this.relatedAccountsText,
+                    icon: 'content/images/icons/Company_24.png'
                 }
             ]}
-        ];
-    },
-    init: function() {     
-        Mobile.GCRM.TradingAccount.Detail.superclass.init.call(this);   
-    },
-    createRequest: function() {
-        var request = Mobile.GCRM.TradingAccount.Detail.superclass.createRequest.call(this);
-        
-        request                     
-            .setQueryArgs({                
-                'select': [
-                    'name',
-                    'status',
-                    'website',
-                    'financeBalance',
-                    'financeLimit',
-                    'lastInvoiceDate',
-                    'lastPaymentDate'
-                ].join(',')                  
-            });     
-        
-        return request;                   
-    } 
+        ]);
+    }
 });

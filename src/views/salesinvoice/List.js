@@ -1,46 +1,31 @@
-﻿/// <reference path="../../../../ext/ext-core-debug.js"/>
-/// <reference path="../../../../Simplate.js"/>
-/// <reference path="../../../../sdata/SDataResourceCollectionRequest.js"/>
-/// <reference path="../../../../sdata/SDataService.js"/>
-/// <reference path="../../../../platform/View.js"/>
-/// <reference path="../../../../platform/List.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/ext/ext-core-debug.js"/>
+/// <reference path="../../../../../argos-sdk/libraries/sdata/sdata-client-debug"/>
+/// <reference path="../../../../../argos-sdk/libraries/Simplate.js"/>
+/// <reference path="../../../../../argos-sdk/src/View.js"/>
+/// <reference path="../../../../../argos-sdk/src/List.js"/>
 
 Ext.namespace("Mobile.GCRM.SalesInvoice");
 
-Mobile.GCRM.SalesInvoice.List = Ext.extend(Sage.Platform.Mobile.List, {        
-    itemTemplate: new Simplate([
-        '<li>',
-        '<a href="#gcrm_salesinvoice_detail" target="_detail" m:key="{%= $["$key"] || $["$uuid"] %}" m:descriptor="{%= $["type"] %}">',
-        '<h3>{%= $["type"] %} ({%= $["dueDate"] %})</h3>',
-        '<h4>{%= $["netTotal"] %} - {%= $["currency"] %}</h4>',
-        '</a>',
-        '</li>'
-    ]),  
-    constructor: function(o) {
-        Mobile.GCRM.SalesInvoice.List.superclass.constructor.call(this);        
-        
-        Ext.apply(this, o, {
-            id: 'gcrm_salesinvoice_list',
-            title: 'Sales Invoices',
-            resourceKind: 'salesInvoices',            
-            pageSize: 10,
-            icon: 'content/images/Accounts_24x24.gif',
-            tools: {}
-        });        
-    },  
-    /* todo: find out why search queries do not work */
-    formatSearchQuery: function(query) {
-        return String.format('name like "%{0}%"', query);
-    },
-    createRequest: function() {
-        var request = Mobile.GCRM.SalesInvoice.List.superclass.createRequest.call(this);
-
-        request
-            .setQueryArgs({
-                'orderby': 'dueDate asc',
-                'select': 'type,status,dueDate,netTotal,currency'                
-            });
-
-        return request;
-    }
-});
+(function() {
+    Mobile.GCRM.SalesInvoice.List = Ext.extend(Sage.Platform.Mobile.List, {
+        contentTemplate: new Simplate([
+            '<h3>{%: $.reference %} ({%: $.customerReference %})</h3>',
+            '<h4>{%: $.date %}</h4>'
+        ]),
+        id: 'gcrm_salesinvoice_list',
+        icon: 'content/images/icons/journal_24.png',
+        detailView: 'gcrm_salesinvoice_detail',
+        titleText: 'Sales Invoices',
+        serviceName: 'gcrm',        
+        querySelect: [
+            'reference',
+            'customerReference',
+            'date'
+        ],
+        resourceKind: 'salesInvoices',
+        /* todo: find out why search queries do not work */
+        formatSearchQuery: function(query) {
+            return String.format('reference like "%{0}%" or customerReference like "%{0}%"', query);
+        }
+    });
+})();
