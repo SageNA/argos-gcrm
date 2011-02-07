@@ -61,7 +61,6 @@ Mobile.GCRM.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModul
         });
     },
     isLinked: function(entry) {
-        return true;
         return (entry['$uuid'] && (entry['$uuid'] != "00000000-0000-0000-0000-000000000000"));
     }
 });
