@@ -23,8 +23,12 @@
         }]
 	}],
 	resources: [{
-		src: '../src/',
-		dest: 'src/argos-gcrm',
+		src: '../content/',
+		dest: 'content',
+		filters: ".*(\\.css|\\.jpg|\\.png|\\.gif)"
+	},{
+		src: '../configuration/gcrm',
+		dest: 'configuration/gcrm',
 		filters: ".*\\.js"
 	}]
 }
