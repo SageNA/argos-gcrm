@@ -22,10 +22,19 @@ Installation
 ### Setup and run the application in "debug" mode
 1.	On your web server, create a Virtual Directory (IIS6), an Application (IIS7), or an Alias (Apache), or functional equivalent, called `mobile`, pointing to the base directory where you cloned [Argos SDK][argos-sdk], eg:
 
-		cd \projects\sage\mobile
-2.	In your browser, navigate to the path `/mobile/products/argos-gcrm/index-dev.html` on your web server, eg:
+		...\projects\sage\mobile
+2.  The `products/argos-lfg/index-dev-gcrm.html` file must either by copied to the `products/argos-saleslogix` folder or have a symlink created to it.  To create a symlink (which makes it easier to keep changes in sync) you can do the following:
+    1. Open a command prompt
+    2. Change to the `products/argos-saleslogix` folder
+    3. For Windows:
 
-		http://localhost/mobile/products/argos-gcrm/index-dev.html
+            mklink index-dev-gcrm.html ..\argos-lfg\index-dev-gcrm.html
+    4. For Unix:
+
+            ln -s ../argos-lfg/index-gcrm-lfg.html index-dev-gcrm.html
+3.	In your browser, navigate to the `index-dev-gcrm.html` on your web server, eg:
+
+        http://localhost/mobile/products/argos-saleslogix/index-dev-gcrm.html
 
 ### Building A Release Version
 
