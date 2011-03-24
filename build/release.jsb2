@@ -4,7 +4,7 @@
 	deployDir: 'deploy/',
 	pkgs: [{
 		name: 'GCRM Module',
-		file: 'app/content/javascript/argos-gcrm.js',
+		file: 'content/javascript/argos-gcrm.js',
 		isDebug: true,
 		fileIncludes: [{
             text: 'Detail.js',
