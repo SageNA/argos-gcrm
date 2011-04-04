@@ -1,5 +1,17 @@
 Ext.namespace("Mobile.GCRM");
 
+if (typeof Sage.Platform.Mobile.Edit.prototype.expandExpression !== 'function')
+{
+	Ext.override(Sage.Platform.Mobile.Edit, {
+		expandExpression: function(expression) {
+			if (typeof expression === 'function')
+				return expression.apply(this, Array.prototype.slice.call(arguments, 1));
+			else
+				return expression;
+		}
+	});
+}
+
 Mobile.GCRM.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModule, {
     loadViews: function() {
         Mobile.GCRM.ApplicationModule.superclass.loadViews.apply(this, arguments);
