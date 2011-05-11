@@ -26,6 +26,6 @@ Mobile.GCRM.TradingAccount.List = Ext.extend(Sage.Platform.Mobile.List, {
     ],
     /* todo: find out why search queries do not work */
     formatSearchQuery: function(query) {
-        return String.format('name like "%{0}%"', query);
+        return String.format('name like "%{0}%"', this.escapeSearchQuery(query));
     }   
 });

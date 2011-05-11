@@ -25,7 +25,7 @@ Ext.namespace("Mobile.GCRM.SalesInvoice");
         resourceKind: 'salesInvoices',
         /* todo: find out why search queries do not work */
         formatSearchQuery: function(query) {
-            return String.format('reference like "%{0}%" or customerReference like "%{0}%"', query);
+            return String.format('reference like "%{0}%" or customerReference like "%{0}%"', this.escapeSearchQuery(query));
         }
     });
 })();
