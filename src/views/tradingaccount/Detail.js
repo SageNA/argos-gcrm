@@ -17,9 +17,10 @@ Mobile.GCRM.TradingAccount.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
     balanceText: 'balance',
     limitText: 'limit',
     lastInvText: 'last inv',
-    lastPayText: 'last pay',    
+    lastPayText: 'last pay',
+    paymentTermsText: 'terms',
     relatedItemsText: 'Related Items',
-    relatedAccountsText: 'Account(s)',
+    relatedAccountsText: 'CRM Account',
     serviceName: 'gcrm',
     resourceKind: 'tradingAccounts',
     querySelect: [
@@ -28,8 +29,7 @@ Mobile.GCRM.TradingAccount.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
         'website',
         'financeBalance',
         'financeLimit',
-        'lastInvoiceDate',
-        'lastPaymentDate'
+        'paymentTerms'
     ],   
     createLayout: function() {
         return this.layout || (this.layout = [
@@ -38,12 +38,11 @@ Mobile.GCRM.TradingAccount.Detail = Ext.extend(Sage.Platform.Mobile.Detail, {
             {name: 'website', label: this.webText, renderer: Sage.Platform.Mobile.Format.link},
             {name: 'financeBalance', label: this.balanceText},
             {name: 'financeLimit', label: this.limitText},
-            {name: 'lastInvoiceDate', label: this.lastInvText},
-            {name: 'lastPaymentDate', label: this.lastPayText},
+            {name: 'paymentTerms', label: this.paymentTermsText},
             {options: {title: this.relatedItemsText, list: true}, as: [
                 {
-                    view: 'account_related',
-                    where: this.formatRelatedQuery.createDelegate(this, ["$uuid eq '{0}'", '$uuid'], true),
+                    view: 'account_detail',
+                    key: this.formatRelatedQuery.createDelegate(this, ["$uuid eq '{0}'", '$uuid'], true),
                     label: this.relatedAccountsText,
                     icon: 'content/images/icons/Company_24.png'
                 }

@@ -7,13 +7,18 @@
 		file: 'content/javascript/argos-gcrm.js',
 		isDebug: true,
 		fileIncludes: [{
+            text: 'ApplicationModule.js',
+            path: '../src/'
+        },
+        {
             text: 'Detail.js',
             path: '../src/views/salesinvoice/'
         },
         {
             text: 'List.js',
             path: '../src/views/salesinvoice/'
-        },{
+        },
+        {
             text: 'Detail.js',
             path: '../src/views/tradingaccount/'
         },

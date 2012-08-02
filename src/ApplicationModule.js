@@ -39,9 +39,9 @@ Mobile.GCRM.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModul
             where: 'before',
             value: {
                 icon: 'content/images/icons/Company_24.png',
-                label: 'ERP Accounts',
-                where: function(entry) { return String.format('$uuid eq "{0}"', entry['$uuid']); },
-                view: 'gcrm_tradingaccount_related'
+                label: 'ERP Account',
+                key: function(entry) { return String.format("$uuid eq '{0}'", entry['$uuid']); },
+                view: 'gcrm_tradingaccount_detail'
             }
         });
 
@@ -54,7 +54,7 @@ Mobile.GCRM.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModul
                 label: 'ERP Sales Invoices',
                 resourceKind: 'tradingAccounts',
                 resourceProperty: 'salesInvoices',
-                resourcePredicate: function(entry) { return String.format('$uuid eq "{0}"', entry['$uuid']); },
+                resourcePredicate: function(entry) { return String.format("$uuid eq '{0}'", entry['$uuid']); },
                 view: 'gcrm_salesinvoice_related'
             }
         });
@@ -69,7 +69,10 @@ Mobile.GCRM.ApplicationModule = Ext.extend(Sage.Platform.Mobile.ApplicationModul
             isLinked: this.isLinked,
             hashTagQueries: Ext.apply(Mobile.SalesLogix.Account.List.prototype.hashTagQueries || {}, {
                 'linked': '$uuid ne null'
-            })
+            }),
+            escapeSearchQuery: function(query) {
+                return (query || "").replace(/'/g, "''");
+            }
         });
     },
     isLinked: function(entry) {
